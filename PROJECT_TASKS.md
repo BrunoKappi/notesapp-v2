@@ -35,12 +35,12 @@ O objetivo deste projeto é realizar uma revisão e refatoração completa da ap
 ### 6. Notas (Visual e Layout)
 - 🟩 Revisar espaçamento, sombras, bordas, arredondamento e tipografia semelhantes ao Keep.
 - 🟩 Corrigir bugs de CSS (conteúdo invade título, título cortado, sobreposição).
-- 🟩 Implementar altura dinâmica para as notas (Masonry layout, possivelmente).
+- 🟩 Implementar altura dinâmica para as notas (substituído por CSS Grid).
 
 ### 7. Drag and Drop
-- 🟨 Implementar Drag and Drop para reorganização manual.
-- 🟨 Persistir ordem das notas no banco de dados.
-- 🟨 Bloquear seleção de texto durante o Drag (permitir seleção apenas no Modal).
+- 🟩 Implementar Drag and Drop para reorganização manual.
+- 🟩 Persistir ordem das notas no banco de dados.
+- 🟩 Bloquear seleção de texto durante o Drag (permitir seleção apenas no Modal).
 
 ### 8. Modal da Nota
 - 🟩 Refazer Modal usando shadcn/ui.
@@ -49,6 +49,7 @@ O objetivo deste projeto é realizar uma revisão e refatoração completa da ap
 - 🟩 Rolagem apenas no conteúdo da nota.
 - 🟩 Rodapé fixo com ícones: Cores, Etiquetas, Excluir, Arquivar.
 - 🟩 Corrigir bug: O Modal nunca deve fechar ao alterar propriedades da nota.
+- 🟩 Corrigir foco inicial: focar no fim do conteúdo sem selecionar o título.
 
 ### 9. Cores das Notas
 - 🟩 Expandir paleta de cores disponíveis (Popover moderno de seleção).
@@ -67,11 +68,13 @@ O objetivo deste projeto é realizar uma revisão e refatoração completa da ap
 - 🟩 Adicionar, remover, criar nova e excluir etiquetas via Modal.
 - 🟩 Mostrar etiquetas no rodapé das notas (com botão 'X' para remover).
 - 🟩 Implementar filtro por etiquetas com chips interativos no topo.
+- 🟩 Implementar popover de filtro por etiquetas na Navbar com múltiplos marcadores.
 
 ### 13. Arquivamento
 - 🟩 Adicionar suporte a arquivamento (campo `archived`).
 - 🟩 Exibir botão "Visualizar apenas Arquivadas" no Popover do usuário.
 - 🟩 Permitir Arquivar, Desarquivar e Excluir.
+- 🟩 Garantir ordenação própria separada para as notas arquivadas.
 
 ### 14. Tema Claro/Escuro
 - 🟩 Implementar suporte a temas via Tailwind/shadcn.
@@ -88,6 +91,7 @@ O objetivo deste projeto é realizar uma revisão e refatoração completa da ap
 - 🟩 Criar camada de `Service` contendo regras de negócio.
 - 🟩 Utilizar Custom Hooks com `React Query` e `Axios`.
 - 🟩 Manter a implementação atual via Firebase Firestore/Auth mas preparada para troca.
+- 🟩 Persistir ordenação de notas no campo `order`.
 
 ### 17. UX e Validação Final
 - 🟩 Assegurar animações discretas e imediatas.
@@ -109,12 +113,16 @@ O objetivo deste projeto é realizar uma revisão e refatoração completa da ap
   - Desenvolvido o **Sistema Completo de Etiquetas (Tags)**: modal global de marcadores, popovers individuais nas notas e chip filters no topo do grid.
   - Desenvolvido o **suporte completo a Cores adaptadas ao Modo Escuro**: mapeamento dinâmico de cores baseadas em variáveis CSS.
   - Corrigido o layout de Notas Arquivadas (ajustado comportamento do Masonry com `flex: 1` e ocultado o formulário de criação).
+  - Implementado **Drag & Drop de Notas**: ordenação manual reativa com `@dnd-kit/core` e `@dnd-kit/sortable` em CSS Grid Tailwind, com persistência automática no Firestore (campo `order`).
+  - Corrigido **UX do Modal**: eliminada a desmontagem do modal ao editar dados (ajustado o reducer `EDIT_NOTA`), implementado foco automático no fim da área de conteúdo (textarea) e removida seleção inicial do título.
+  - Adicionado **Filtro de Tags na Navbar**: popover dropdown para selecionar múltiplos marcadores cadastrados em conjunto com a busca textual.
+  - Corrigido o **Flash da Tela de Login ao Recarregar**: bloqueada a renderização de rotas/redirecionamentos em `App.jsx` até que o Firebase Auth inicialize por completo.
 
 ---
 
 ## Pendências
 
-- 7. Drag and Drop (Requer substituição de `react-masonry-css` ou adaptação avançada).
+Nenhuma pendência crítica identificada para esta etapa de refatoração de UX e Arquitetura.
 
 ---
 
@@ -136,5 +144,10 @@ O objetivo deste projeto é realizar uma revisão e refatoração completa da ap
 
 - Bug do Modal fechando ao editar cores/arquivar nota foi resolvido migrando de `react-bootstrap/Modal` para `shadcn/Dialog` e tratando eventos de clique sem afetar o open state da Dialog nativa.
 - Corrigida a sobreposição e falha de foco/digitação do input de busca que ocorria pela falta do processamento de `pointer-events-none` do Tailwind.
+- Corrigida a compressão dos cards de notas arquivadas ajustando a propriedade de distribuição flexível nas colunas do Masonry.
+- Resolvido o contraste inadequado das cores de notas no modo escuro utilizando mapeamento por variáveis CSS.
+- Corrigido bug de remounting do item que fechava o Modal (reducer `EDIT_NOTA` reordenava o array movendo o item para o fim; corrigido para `.map()`).
+- Eliminado o flash visual da página de Login ao atualizar a página com usuário logado (implementada verificação e spinner de carregamento durante `onAuthStateChanged`).
+- Resolvida a seleção automática do título no Modal, redirecionando o foco para o final do textarea. `pointer-events-none` do Tailwind.
 - Corrigida a compressão dos cards de notas arquivadas ajustando a propriedade de distribuição flexível nas colunas do Masonry.
 - Resolvido o contraste inadequado das cores de notas no modo escuro utilizando mapeamento por variáveis CSS.
