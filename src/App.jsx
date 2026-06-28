@@ -18,6 +18,7 @@ import { Loader2 } from 'lucide-react';
 const App = (props) => {
 
   const [loaded, setloaded] = useState(false);
+  const navigate = useNavigate();
 
   if (props.LoggedUser.email === '') {
     return (
@@ -26,9 +27,6 @@ const App = (props) => {
       </div>
     )
   }
-
-
-  const navigate = useNavigate();
 
 
 
