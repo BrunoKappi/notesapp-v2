@@ -9,9 +9,9 @@ const Notas = (state = [], action) => {
         case 'SET_NOTAS':
             return action.Notas
         case 'EDIT_NOTA':
-            return state.filter(nota => {
-                return nota.docID !== action.docID
-            }).concat(action.editedNota)
+            return state.map(nota => {
+                return nota.docID === action.docID ? action.editedNota : nota
+            })
         default:
             return state
     }

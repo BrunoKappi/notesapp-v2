@@ -33,6 +33,16 @@ const LoggedUser = (state = DefaultLoggedUser, action) => {
                 ...state,
                 Search: '' 
             }
+        case 'SET_ACTIVE_TAGS':
+            return {
+                ...state,
+                ActiveTags: action.tags
+            }
+        case 'CLEAR_ACTIVE_TAGS':
+            return {
+                ...state,
+                ActiveTags: []
+            }
         case 'SET_LOGGED':
             return action.user
         default:

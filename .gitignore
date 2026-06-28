@@ -9,3 +9,19 @@ build
 .env.production.local
 .env.development
 .env.test
+
+graphify-out/
+.agents/
+
+# Custom ignores
+configFiles
+.graphifyignore
+.geminiignore
+.claudeignore
+.antigravityignore
+agentsIgnore
+git
+
+.env
+.env.production
+.env.development

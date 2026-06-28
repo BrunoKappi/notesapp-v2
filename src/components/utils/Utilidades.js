@@ -1,7 +1,7 @@
 import store from '../store/store'
 import { editUsuarioAction, addUsuarioAction } from '../store/actions/UsuariosActions'
 import { setNotification } from '../store/actions/NotificationActions';
-import { SetSidebarTag, ToggleSideBar, clearLoggedUser, SetSearchProp, ClearSearchProp } from '../store/actions/LoggedUserActions'
+import { SetSidebarTag, ToggleSideBar, clearLoggedUser, SetSearchProp, ClearSearchProp, SetActiveTagsProp, ClearActiveTagsProp } from '../store/actions/LoggedUserActions'
 //import { useNavigate } from 'react-router-dom';
 import { logout, signInWithGoogle } from '../firebase/auth'
 import { setLoggedUser } from '../store/actions/LoggedUserActions'
@@ -142,6 +142,14 @@ export const SetSearchRedux = (search) => {
 }
 export const ClearSearchRedux = () => {
     store.dispatch(ClearSearchProp())
+}
+
+export const SetActiveTagsRedux = (tags) => {
+    store.dispatch(SetActiveTagsProp(tags))
+}
+
+export const ClearActiveTagsRedux = () => {
+    store.dispatch(ClearActiveTagsProp())
 }
 
 export const ToggleSidebar = (Valor) => {

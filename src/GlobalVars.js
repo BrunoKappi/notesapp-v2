@@ -72,7 +72,8 @@ export const DefaultNota = {
     titulo: '',
     conteudo: '',
     docID: '',
-    cor: '#FFFFFF'
+    cor: '#FFFFFF',
+    order: 0
 }
 
 

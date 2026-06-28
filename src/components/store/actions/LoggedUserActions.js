@@ -43,6 +43,19 @@ export const ClearSearchProp = () => {
     })
 }
 
+export const SetActiveTagsProp = (tags) => {
+    return ({
+        type: 'SET_ACTIVE_TAGS',
+        tags
+    })
+}
+
+export const ClearActiveTagsProp = () => {
+    return ({
+        type: 'CLEAR_ACTIVE_TAGS'
+    })
+}
+
 
 
 
