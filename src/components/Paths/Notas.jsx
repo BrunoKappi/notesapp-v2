@@ -23,7 +23,6 @@ import { editNotaAction } from "../store/actions/NotasActions";
 import store from "../store/store";
 
 const Notas = (props) => {
-  const [selectedTag, setSelectedTag] = useState(null);
   const { mutate: updateNote } = useUpdateNote();
 
   const sensors = useSensors(
@@ -37,9 +36,7 @@ const Notas = (props) => {
     })
   );
 
-  const filteredNotas = selectedTag
-    ? props.Notas.filter(note => note.tags && note.tags.includes(selectedTag))
-    : props.Notas;
+  const filteredNotas = props.Notas;
 
   const handleDragEnd = (event) => {
     const { active, over } = event;
@@ -68,36 +65,7 @@ const Notas = (props) => {
 
       {props.currentTab !== 'Arquivadas' && <CriarNotaForm />}
 
-      {props.labels && props.labels.length > 0 && (
-        <div className="flex flex-wrap items-center justify-center gap-2 mb-6 max-w-2xl w-full px-4">
-          <span className="text-xs font-semibold text-muted-foreground mr-1">Filtrar marcadores:</span>
-          {props.labels.map((label, index) => {
-            const isSelected = selectedTag === label;
-            return (
-              <button
-                key={index}
-                onClick={() => setSelectedTag(isSelected ? null : label)}
-                className={cn(
-                  "px-3 py-1 text-xs font-medium rounded-full border transition-colors",
-                  isSelected
-                    ? "bg-primary text-primary-foreground border-primary"
-                    : "bg-background text-foreground hover:bg-muted"
-                )}
-              >
-                {label}
-              </button>
-            );
-          })}
-          {selectedTag && (
-            <button
-              onClick={() => setSelectedTag(null)}
-              className="text-xs font-semibold text-destructive hover:underline ml-2"
-            >
-              Limpar
-            </button>
-          )}
-        </div>
-      )}
+
 
       <DndContext
         sensors={sensors}

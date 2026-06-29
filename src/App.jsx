@@ -20,21 +20,6 @@ const App = (props) => {
   const [loaded, setloaded] = useState(false);
   const navigate = useNavigate();
 
-  if (props.LoggedUser.email === '') {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-background">
-        <Loader2 className="h-8 w-8 animate-spin text-primary" />
-      </div>
-    )
-  }
-
-
-
-  if (props.Usuario) {
-    GetNotesFromFirebase(props.Usuario.email)
-  }
-
-
   useEffect(() => {
     if (props.LoggedUser.email === 'Vazio' && window.location.pathname !== '/App/Cadastro'
       && !window.location.pathname.includes('Forget')
@@ -47,6 +32,18 @@ const App = (props) => {
       setloaded(true)
     })
   }, [props.LoggedUser.uid, props.LoggedUser.email, navigate])
+
+  if (props.LoggedUser.email === '') {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+      </div>
+    )
+  }
+
+  if (props.Usuario) {
+    GetNotesFromFirebase(props.Usuario.email)
+  }
 
 
 
