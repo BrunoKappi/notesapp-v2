@@ -25,3 +25,6 @@ git
 .env
 .env.production
 .env.development
+
+# Ignore local knowledge database
+kb_database.md
